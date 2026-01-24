@@ -13,32 +13,27 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private final UserService userService;
+    private final UserService service;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserService service) {
+        this.service = service;
     }
 
     @PostMapping
     public ResponseEntity<UserResponse> create(@Valid @RequestBody UserCreateRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(request));
     }
 
-    @GetMapping("/secure")
-    @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<String> securedEndpoint() {
-        return ResponseEntity.ok("You are authenticated");
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponse> getUser(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getUserById(id));
     }
 
-    @GetMapping("/admin")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<String> adminEndpoint() {
-        return ResponseEntity.ok("Hello Admin! You have full access.");
-    }
-
-    @GetMapping("/user")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<String> userEndpoint() {
-        return ResponseEntity.ok("Hello User! You have basic access.");
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        service.deleteUser(id);
+        return ResponseEntity.ok("User deleted successfully");
     }
 }
+
