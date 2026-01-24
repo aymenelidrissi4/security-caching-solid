@@ -1,6 +1,5 @@
 package com.example.demo.api.controller;
 
-
 import com.example.demo.api.dto.UserCreateRequest;
 import com.example.demo.api.dto.UserResponse;
 import com.example.demo.domain.service.UserService;
@@ -10,11 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-
 
     private final UserService userService;
 
@@ -31,5 +28,17 @@ public class UserController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<String> securedEndpoint() {
         return ResponseEntity.ok("You are authenticated");
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> adminEndpoint() {
+        return ResponseEntity.ok("Hello Admin! You have full access.");
+    }
+
+    @GetMapping("/user")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<String> userEndpoint() {
+        return ResponseEntity.ok("Hello User! You have basic access.");
     }
 }

@@ -16,7 +16,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
@@ -30,13 +29,16 @@ public class SecurityConfig {
         return http.build();
     }
 
-
     @Bean
     UserDetailsService userDetailsService(PasswordEncoder encoder) {
         return new InMemoryUserDetailsManager(
                 User.withUsername("admin")
                         .password(encoder.encode("admin123"))
                         .roles("ADMIN")
+                        .build(),
+                User.withUsername("user")
+                        .password(encoder.encode("user123"))
+                        .roles("USER")    // USER role
                         .build()
         );
     }
