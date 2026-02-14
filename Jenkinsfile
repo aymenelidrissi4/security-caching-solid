@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(
-                        credentialsId: '841c51cf-756c-4f74-a0e1-834a79549c49',
+                        credentialsId: '2d80ab41-9c2f-405e-b7d1-d2bd432db51f',
                         usernameVariable: 'DOCKER_USER',
                         passwordVariable: 'DOCKER_PASS'
                     )]) {
@@ -48,7 +48,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(
-                        credentialsId: '841c51cf-756c-4f74-a0e1-834a79549c49',
+                        credentialsId: '2d80ab41-9c2f-405e-b7d1-d2bd432db51f',
                         usernameVariable: 'DOCKER_USER',
                         passwordVariable: 'DOCKER_PASS'
                     )]) {
@@ -69,7 +69,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(
-                        credentialsId: '841c51cf-756c-4f74-a0e1-834a79549c49',
+                        credentialsId: '2d80ab41-9c2f-405e-b7d1-d2bd432db51f',
                         usernameVariable: 'DOCKER_USER',
                         passwordVariable: 'DOCKER_PASS'
                     )]) {
