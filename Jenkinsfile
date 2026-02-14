@@ -65,6 +65,7 @@
                 }
             }
 
+
 //             stage('Deploy to Minikube') {
 //                 steps {
 //                     script {
@@ -91,7 +92,7 @@
 //                     }
 //                 }
 //             }
-//         }
+        }
 
         post {
             always {
