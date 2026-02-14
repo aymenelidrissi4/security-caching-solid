@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: security-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: security-app
+  template:
+    metadata:
+      labels:
+        app: security-app
+    spec:
+      containers:
+        - name: security-app-container
+          image: aymenmoubtassim/security-app:11   # use tag 11
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SERVER_ADDRESS
+              value: "0.0.0.0"
+            - name: SERVER_PORT
+              value: "8081"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: security-app-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: security-app
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
