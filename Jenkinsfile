@@ -65,33 +65,33 @@
                 }
             }
 
-            stage('Deploy to Minikube') {
-                steps {
-                    script {
-                        withCredentials([file(credentialsId: 'kubeconfig-minikube', variable: 'KUBECONFIG')]) {
-
-                            sh '''
-                                export KUBECONFIG=$KUBECONFIG
-
-                                kubectl get nodes
-
-                                kubectl get deployment security-app -n $K8S_NAMESPACE || \
-                                kubectl create deployment security-app \
-                                    --image=$DOCKER_IMAGE \
-                                    -n $K8S_NAMESPACE
-
-                                kubectl set image deployment/security-app \
-                                    security-app=$DOCKER_IMAGE \
-                                    -n $K8S_NAMESPACE
-
-                                kubectl rollout status deployment/security-app \
-                                    -n $K8S_NAMESPACE
-                            '''
-                        }
-                    }
-                }
-            }
-        }
+#            stage('Deploy to Minikube') {
+#                steps {
+#                    script {
+#                        withCredentials([file(credentialsId: 'kubeconfig-minikube', variable: 'KUBECONFIG')]) {
+#
+#                            sh '''
+#                                export KUBECONFIG=$KUBECONFIG
+#
+#                                kubectl get nodes
+#
+#                                kubectl get deployment security-app -n $K8S_NAMESPACE || \
+#                                kubectl create deployment security-app \
+#                                    --image=$DOCKER_IMAGE \
+#                                    -n $K8S_NAMESPACE
+#
+#                                kubectl set image deployment/security-app \
+#                                    security-app=$DOCKER_IMAGE \
+#                                    -n $K8S_NAMESPACE
+#
+#                                kubectl rollout status deployment/security-app \
+#                                    -n $K8S_NAMESPACE
+#                            '''
+#                        }
+#                    }
+#                }
+#            }
+#        }
 
         post {
             always {
